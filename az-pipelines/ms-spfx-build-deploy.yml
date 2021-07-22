@@ -81,10 +81,8 @@ stages:
               - script: |
                   m365 login -t password -u $(username) -p $(password)                  
                 displayName: 'Connect to M365'
-                
-              - bash: ls
 
-              - script: 'm365 spo app add -p $(Build.ArtifactStagingDirectory)/drop/sharepoint/solution/$(sppkg) --overwrite'
+              - script: 'm365 spo app add -p $(Build.StagingDirectory)/drop/sharepoint/solution/$(sppkg) --overwrite'
                 displayName: 'Upload to App Catalog'
 
               - script: 'm365 spo app deploy --name $(sppkg)'
