@@ -1,0 +1,87 @@
+name: spfx build
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - "FoodListSPFx/*"
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        pool:
+          vmImage: "ubuntu-20.04"
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: 10.x
+            displayName: Install Node.js
+          - task: CmdLine@2
+            displayName: npm install
+            inputs:
+              script: "npm install"
+              workingDirectory: "FoodListSPFx/"
+
+          - task: gulp@1
+            displayName: "gulp bundel"
+            inputs:
+              gulpFile: "FoodListSPFx/gulpfile.js"
+              targets: "bundle"
+              arguments: "--ship"
+              enableCodeCoverage: false
+
+          - task: gulp@1
+            displayName: "gulp package solution"
+            inputs:
+              gulpFile: "FoodListSPFx/gulpfile.js"
+              targets: "package-solution"
+              arguments: "--ship"
+
+          - task: CopyFiles@2
+            displayName: "Copy Files to: $(build.artifactstagingdirectory)/drop"
+            inputs:
+              Contents: "FoodListSPFx/sharepoint/solution/*.sppkg"
+              TargetFolder: "$(build.artifactstagingdirectory)/drop"
+
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish artifacts: drop"
+            inputs:
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)/drop"
+
+  - stage: Deploy
+    displayName: Deploy to M365
+    dependsOn: Build
+
+    jobs:
+      - deployment: DeployM365
+        displayName: Deploy to M365
+        environment: M365Prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+            
+              - task: NodeTool@0
+                displayName: 'Use Node 10.x'
+                inputs:
+                  versionSpec: 10.x
+                  
+              - task: Npm@1
+                displayName: 'npm i -g @pnp/cli-microsoft365'
+                inputs:
+                  command: custom
+                  verbose: false
+                  customCommand: 'install -g @pnp/cli-microsoft365'
+              
+              - script: |
+                  m365 login -t password -u $(username) -p $(password)                  
+                displayName: 'Connect to M365'
+
+              - script: 'm365 spo app add -p $(Build.ArtifactStagingDirectory)/drop/sharepoint/solution/sp-fx-web-part.sppkg --overwrite'
+                displayName: 'Upload to App Catalog'
+
+              - script: 'm365 spo app deploy --name sp-fx-build.sppkg'
+                displayName: 'Deploy App'
