@@ -6,7 +6,10 @@ trigger:
       - master
   paths:
     include:
-      - "FoodListSPFx/*"
+      - "*"
+
+variables:
+  sppkg: devops-wp.sppkg
 
 stages:
   - stage: Build
@@ -17,18 +20,17 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: 10.x
+              versionSpec: 12.x
             displayName: Install Node.js
           - task: CmdLine@2
             displayName: npm install
             inputs:
               script: "npm install"
-              workingDirectory: "FoodListSPFx/"
 
           - task: gulp@1
             displayName: "gulp bundel"
             inputs:
-              gulpFile: "FoodListSPFx/gulpfile.js"
+              gulpFile: "gulpfile.js"
               targets: "bundle"
               arguments: "--ship"
               enableCodeCoverage: false
@@ -36,14 +38,14 @@ stages:
           - task: gulp@1
             displayName: "gulp package solution"
             inputs:
-              gulpFile: "FoodListSPFx/gulpfile.js"
+              gulpFile: "gulpfile.js"
               targets: "package-solution"
               arguments: "--ship"
 
           - task: CopyFiles@2
             displayName: "Copy Files to: $(build.artifactstagingdirectory)/drop"
             inputs:
-              Contents: "FoodListSPFx/sharepoint/solution/*.sppkg"
+              Contents: "sharepoint/solution/*.sppkg"
               TargetFolder: "$(build.artifactstagingdirectory)/drop"
 
           - task: PublishBuildArtifacts@1
@@ -65,9 +67,9 @@ stages:
               steps:
             
               - task: NodeTool@0
-                displayName: 'Use Node 10.x'
+                displayName: 'Use Node 12.x'
                 inputs:
-                  versionSpec: 10.x
+                  versionSpec: 12.x
                   
               - task: Npm@1
                 displayName: 'npm i -g @pnp/cli-microsoft365'
@@ -83,5 +85,5 @@ stages:
               - script: 'm365 spo app add -p $(Build.ArtifactStagingDirectory)/drop/sharepoint/solution/sp-fx-web-part.sppkg --overwrite'
                 displayName: 'Upload to App Catalog'
 
-              - script: 'm365 spo app deploy --name sp-fx-build.sppkg'
+              - script: 'm365 spo app deploy --name $(sppkg)'
                 displayName: 'Deploy App'
