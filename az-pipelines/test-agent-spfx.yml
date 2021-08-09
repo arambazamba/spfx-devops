@@ -17,8 +17,8 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: 10.x
-            displayName: Install Node.js
+              versionSpec: 12.x
+            displayName: Use Node 12.x
           - task: CmdLine@2
             displayName: npm install
             inputs:
