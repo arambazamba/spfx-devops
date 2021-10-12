@@ -1,4 +1,4 @@
-name: spfx build
+name: spfx-build-deploy
 
 trigger:
   branches:
