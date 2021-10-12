@@ -10,6 +10,7 @@ trigger:
 
 variables:
   sppkg: devops-wp.sppkg
+  # setruntime vars: username, password
 
 stages:
   - stage: Build
