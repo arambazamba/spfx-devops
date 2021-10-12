@@ -7,6 +7,9 @@ trigger:
   paths:
     include:
       - "*"
+    exclude:
+      - az-pipelines/*
+      - _images/*
 
 variables:
   sppkg: devops-wp.sppkg
