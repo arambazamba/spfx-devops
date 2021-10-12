@@ -16,6 +16,7 @@ stages:
   - stage: Build
     jobs:
       - job: BuildJob
+        displayName: Build SPFx
         pool:
           vmImage: "ubuntu-20.04"
         steps:
