@@ -3,7 +3,7 @@ parameters:
     type: string
     default: "12.x"
 
-  - name: artifactName
+  - name: pkg
     type: string
     default: "drop"
 
@@ -34,12 +34,12 @@ steps:
       arguments: "--ship"
 
   - task: CopyFiles@2
-    displayName: "Copy Files to: $(build.artifactstagingdirectory)/${{ parameters.artifactName }}"
+    displayName: "Copy Files to: $(build.artifactstagingdirectory)/${{ parameters.pkg }}"
     inputs:
       Contents: "sharepoint/solution/*.sppkg"
-      TargetFolder: "$(build.artifactstagingdirectory)/${{ parameters.artifactName }}"
+      TargetFolder: "$(build.artifactstagingdirectory)/${{ parameters.pkg }}"
 
   - task: PublishBuildArtifacts@1
-    displayName: "Publish artifacts: ${{ parameters.artifactName }}"
+    displayName: "Publish artifacts: ${{ parameters.pkg }}"
     inputs:
-        PathtoPublish: "$(Build.ArtifactStagingDirectory)/${{ parameters.artifactName }}"    
+        PathtoPublish: "$(Build.ArtifactStagingDirectory)/${{ parameters.pkg }}"    

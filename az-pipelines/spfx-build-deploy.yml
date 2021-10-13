@@ -27,7 +27,7 @@ stages:
           - template: templates/spfx-build.yaml
             parameters:
               nodeVersion: $(nodeVersion)
-              artifactName: $(sppkg)
+              pkg: $(sppkg)
 
   - stage: Deploy
     displayName: Deploy to M365
@@ -44,6 +44,6 @@ stages:
                 - template: templates/spfx-deploy-cli.yaml
                   parameters:
                     nodeVersion: $(nodeVersion)
-                    artifactName: $(sppkg)
+                    pkg: $(sppkg)
                     username: $(username)
                     password: $(password)
