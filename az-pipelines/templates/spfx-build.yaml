@@ -11,7 +11,7 @@ steps:
   - task: NodeTool@0
     displayName: "use node ${{ parameters.nodeVersion }}.x"
     inputs:
-      versionSpec: "${{ parameters.nodeVersion }}".x
+      versionSpec: "${{ parameters.nodeVersion }}.x"
     
   - task: CmdLine@2
     displayName: npm install
