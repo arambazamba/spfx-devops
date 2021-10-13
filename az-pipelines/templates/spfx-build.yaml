@@ -9,9 +9,9 @@ parameters:
 
 steps:
   - task: NodeTool@0
-    displayName: "Use Node {{ parameters.nodeVersion }}"
+    displayName: "Use Node ${{ parameters.nodeVersion }}"
     inputs:
-      versionSpec: {{ parameters.nodeVersion }}
+      versionSpec: "${{ parameters.nodeVersion }}""
     
   - task: CmdLine@2
     displayName: npm install
