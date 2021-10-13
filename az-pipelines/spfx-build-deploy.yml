@@ -16,13 +16,14 @@ variables:
   nodeVersion: "12.x"
   # set runtime vars: username, password
 
+pool:
+  vmImage: "ubuntu-20.04"
+
 stages:
   - stage: Build
     jobs:
       - job: BuildJob
         displayName: Build SPFx
-        pool:
-          vmImage: "ubuntu-20.04"
         steps:
           - template: templates/spfx-build.yaml
             parameters:
