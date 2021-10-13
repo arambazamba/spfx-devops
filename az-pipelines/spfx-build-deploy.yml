@@ -33,7 +33,6 @@ stages:
   - stage: Deploy
     displayName: Deploy to M365
     dependsOn: Build
-
     jobs:
       - deployment: DeployM365
         displayName: Deploy to M365
