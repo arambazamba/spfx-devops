@@ -1,7 +1,7 @@
 parameters:
   - name: nodeVersion
     type: string
-    default: "12"
+    default: "12.x"
 
   - name: artifactName
     type: string
@@ -9,9 +9,9 @@ parameters:
 
 steps:
   - task: NodeTool@0
-    displayName: "Use Node {{ parameters.nodeVersion }}.x"
+    displayName: "Use Node {{ parameters.nodeVersion }}"
     inputs:
-      versionSpec: {{ parameters.nodeVersion }}.x
+      versionSpec: {{ parameters.nodeVersion }}
     
   - task: CmdLine@2
     displayName: npm install
