@@ -23,7 +23,7 @@ stages:
         pool:
           vmImage: "ubuntu-20.04"
         steps:
-          - template: templates/t-spfx-build.yaml
+          - template: templates/spfx-build.yaml
             parameters:
               nodeVersion: $(12)
               artifactName: $(sppkg)

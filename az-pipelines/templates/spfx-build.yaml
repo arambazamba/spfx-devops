@@ -8,22 +8,23 @@ parameters:
     default: "drop"
 
 steps:
-    - task: NodeTool@0
-    inputs:
-        versionSpec: "${{ parameters.nodeVersion }}".x
-    displayName: "use node ${{ parameters.nodeVersion }}.x"
-    - task: CmdLine@2
-    displayName: npm install
-    inputs:
+ - task: NodeTool@0
+   displayName: "use node ${{ parameters.nodeVersion }}.x"
+   inputs:
+    versionSpec: "${{ parameters.nodeVersion }}".x
+    
+ - task: CmdLine@2
+   displayName: npm install
+   inputs:
         script: "npm install"
 
-    - task: gulp@1
-    displayName: "gulp bundel"
-    inputs:
-        gulpFile: "gulpfile.js"
-        targets: "bundle"
-        arguments: "--ship"
-        enableCodeCoverage: false
+ - task: gulp@1
+   displayName: "gulp bundel"
+   inputs:
+    gulpFile: "gulpfile.js"
+    targets: "bundle"
+    arguments: "--ship"
+    enableCodeCoverage: false
 
     - task: gulp@1
     displayName: "gulp package solution"
