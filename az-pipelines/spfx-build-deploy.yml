@@ -40,26 +40,10 @@ stages:
         strategy:
           runOnce:
             deploy:
-              steps:
-            
-              - task: NodeTool@0
-                displayName: use node 12.x
-                inputs:
-                  versionSpec: 12.x
-                  
-              - task: Npm@1
-                displayName: 'npm i -g @pnp/cli-microsoft365'
-                inputs:
-                  command: custom
-                  verbose: false
-                  customCommand: 'install -g @pnp/cli-microsoft365'
-              
-              - script: |
-                  m365 login -t password -u $(username) -p $(password)                  
-                displayName: 'Connect to M365'
-
-              - script: 'm365 spo app add -p $(Agent.BuildDirectory)/drop/sharepoint/solution/$(sppkg) --overwrite'
-                displayName: 'Upload to App Catalog'
-
-              - script: 'm365 spo app deploy --name $(sppkg)'
-                displayName: 'Deploy App'
+              steps:            
+                - template: templates/spfx-deploy-cli.yaml
+                  parameters:
+                    nodeVersion: $(nodeVersion)
+                    artifactName: $(sppkg)
+                    username: $(username)
+                    password: $(password)
