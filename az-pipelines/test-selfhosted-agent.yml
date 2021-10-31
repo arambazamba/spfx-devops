@@ -17,14 +17,17 @@ stages:
             inputs:
               versionSpec: 14.x
             displayName: Use Node 14.x
+          
+          - task: Npm@1
+            displayName: Install Gulp
+            inputs:
+              command: 'custom'
+              customCommand: 'npm i -g gulp'
+
           - task: CmdLine@2
             displayName: npm install
             inputs:
               script: "npm install"
-          - task: Npm@1
-            inputs:
-              command: 'custom'
-              customCommand: 'npm i -g gulp'
 
           - task: gulp@1
             displayName: "gulp bundel"
