@@ -1,12 +1,12 @@
 import * as React from 'react';
-import styles from './DevOpsWp.module.scss';
-import { IDevOpsWpProps } from './IDevOpsWpProps';
+import styles from './SpFxDevOpsWp.module.scss';
+import { ISpFxDevOpsWpProps } from './ISpFxDevOpsWpProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-export default class DevOpsWp extends React.Component<IDevOpsWpProps, {}> {
-  public render(): React.ReactElement<IDevOpsWpProps> {
+export default class SpFxDevOpsWp extends React.Component<ISpFxDevOpsWpProps, {}> {
+  public render(): React.ReactElement<ISpFxDevOpsWpProps> {
     return (
-      <div className={ styles.devOpsWp }>
+      <div className={ styles.spFxDevOpsWp }>
         <div className={ styles.container }>
           <div className={ styles.row }>
             <div className={ styles.column }>

@@ -2,17 +2,17 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
   "version": "2.0",
   "bundles": {
-    "dev-ops-wp-web-part": {
+    "sp-fx-dev-ops-wp-web-part": {
       "components": [
         {
-          "entrypoint": "./lib/webparts/devOpsWp/DevOpsWpWebPart.js",
-          "manifest": "./src/webparts/devOpsWp/DevOpsWpWebPart.manifest.json"
+          "entrypoint": "./lib/webparts/spFxDevOpsWp/SpFxDevOpsWpWebPart.js",
+          "manifest": "./src/webparts/spFxDevOpsWp/SpFxDevOpsWpWebPart.manifest.json"
         }
       ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "DevOpsWpWebPartStrings": "lib/webparts/devOpsWp/loc/{locale}.js"
+    "SpFxDevOpsWpWebPartStrings": "lib/webparts/spFxDevOpsWp/loc/{locale}.js"
   }
 }

@@ -7,19 +7,19 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
-import * as strings from 'DevOpsWpWebPartStrings';
-import DevOpsWp from './components/DevOpsWp';
-import { IDevOpsWpProps } from './components/IDevOpsWpProps';
+import * as strings from 'SpFxDevOpsWpWebPartStrings';
+import SpFxDevOpsWp from './components/SpFxDevOpsWp';
+import { ISpFxDevOpsWpProps } from './components/ISpFxDevOpsWpProps';
 
-export interface IDevOpsWpWebPartProps {
+export interface ISpFxDevOpsWpWebPartProps {
   description: string;
 }
 
-export default class DevOpsWpWebPart extends BaseClientSideWebPart<IDevOpsWpWebPartProps> {
+export default class SpFxDevOpsWpWebPart extends BaseClientSideWebPart<ISpFxDevOpsWpWebPartProps> {
 
   public render(): void {
-    const element: React.ReactElement<IDevOpsWpProps> = React.createElement(
-      DevOpsWp,
+    const element: React.ReactElement<ISpFxDevOpsWpProps> = React.createElement(
+      SpFxDevOpsWp,
       {
         description: this.properties.description
       }
