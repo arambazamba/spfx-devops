@@ -14,15 +14,17 @@ trigger:
 variables:
   sppkg: spfx-devops.sppkg
   nodeVersion: "14.x"
+  azSubs: scSPFx
+  vault: spfxvault
   envflag: staging
-  azSubs: mysubscription
-  vault: myvault
 
 pool:
   vmImage: "ubuntu-20.04"
 
 stages:
   - stage: Build
+    displayName: Build and Provision
+
     jobs:
       - job: BuildJob
         displayName: Build SPFx
@@ -30,7 +32,7 @@ stages:
           - template: templates/spfx-build.yaml
             parameters:
               nodeVersion: $(nodeVersion)
-              pkg: $(sppkg)
+              pkg: $(sppkg)         
 
   - stage: Deploy
     displayName: Deploy to M365
@@ -47,7 +49,7 @@ stages:
                   displayName: 'Azure Key Vault: $(vault)'
                   inputs:
                     azureSubscription: '$(azSubs)'
-                    KeyVaultName: '$(vault)'
+                    KeyVaultName: '$(vault)-$(envflag)'
 
                 - template: templates/spfx-deploy-cli.yaml
                   parameters:
