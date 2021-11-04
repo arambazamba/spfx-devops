@@ -12,7 +12,7 @@ trigger:
       - _images/*
 
 variables:
-  sppkg: devops-wp.sppkg
+  sppkg: spfx-devops.sppkg
   nodeVersion: "14.x"
   azSubs: mysubscription
   vault: myvault
