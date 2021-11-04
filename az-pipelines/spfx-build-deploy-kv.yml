@@ -14,7 +14,8 @@ trigger:
 variables:
   sppkg: devops-wp.sppkg
   nodeVersion: "14.x"
-  # set runtime vars: username, password
+  azSubs: mysubscription
+  vault: myvault
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -40,7 +41,13 @@ stages:
         strategy:
           runOnce:
             deploy:
-              steps:            
+              steps:
+                - task: AzureKeyVault@1
+                  displayName: 'Azure Key Vault: $(vault)'
+                  inputs:
+                    azureSubscription: '$(azSubs)'
+                    KeyVaultName: '$(vault)'
+
                 - template: templates/spfx-deploy-cli.yaml
                   parameters:
                     nodeVersion: $(nodeVersion)
